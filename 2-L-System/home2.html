@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Sistema-L</title>
+
+	<meta charset="utf-8">
+
+	<!-- librerías de estilo -->
+	<!-- Bootstrap Core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Theme CSS -->
+	<link href="css/clean-blog.min.css" rel="stylesheet">
+	<!-- Custom Fonts -->
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+	<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
+	<script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
+	<script src="script.js"> </script>
+
+	<!-- librerías de la parte numérica y grafíca -->
+	<script src="https://unpkg.com/mathjs@5.1.1/dist/math.min.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<link rel="stylesheet" href="styles/monokai-sublime.css">
+	<script src="highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+					<h2 class="section-heading">Sistema-L</h2>
+
+					<br style=" display: block;
+					margin: 15px 5;">
+
+					<div class="row">
+						<br style=" display: block;
+						margin: 5px 0;">
+
+						<p>Visualización del crecimiento de un sistema L mediante la librería p5.js de javascript.
+							Se usó como semilla "FF+[+F-F-F]-[-F+F+F]".</p>
+
+						<p><b>Se uso como guía:</b></p>
+						<p>
+							<a href="https://www.youtube.com/watch?v=E1B4UoSQMFw">
+							The Coding Train: Fractal Trees - L-System
+							</a>
+						</p>
+						<div class="row">
+							<div class="col-sm-6">
+
+							</div>
+
+							<div class="col-sm-6">
+
+							</div>
+
+						</div>
+
+						<div id ="sketch-holder" >   </div>
+
+						<button  onclick="generate();" type="button">Dibujar</button>
+
+						<br>
+
+						<p><b>Código fuente:</b></p>
+
+						<pre><code>
+var axiom = "F";
+//"F[-F]F[+F]F";
+var pattern = "FF+[+F-F-F]-[-F+F+F]";
+var len = 100;
+
+//esta función genera el patrón de crecimiento
+function generate () {
+  len *= 0.58;
+  parts=axiom.split("");
+
+  for(i=0; i< parts.length; i++){
+    switch(parts[i]){
+      case "F":
+      parts[i]=pattern;
+      break;
+    }
+  }
+
+  axiom = parts.join("");
+  turtle();
+
+}
+
+//esta función dibuja una iteración al ejecutarse
+function turtle () {
+  resetMatrix();
+  stroke(255);
+  translate(width / 2, height);
+  parts=axiom.split("");
+
+  for(i=0; i< parts.length; i++){
+    switch(parts[i]){
+
+      case "F":
+      line(0, 0, 0, -len);
+      translate(0, -len);
+      break;
+
+      case "+":
+      rotate(angle);
+      break;
+
+      case "-":
+      rotate(-angle);
+      break;
+
+      case "[":
+      push();
+      break;
+
+      case "]":
+      pop();
+      break;
+    }
+  }
+}
+
+//función de inicialización de la librería p5
+function setup () {
+  var canvas = createCanvas(750,750);
+  canvas.parent('sketch-holder');
+
+  background(10);
+  angle = radians(25);
+  turtle();
+}
+						</code></pre>
+
+
+</div>
+</div>
+</div>
+</article>
+
+<hr>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Termites</title>
+
+	<meta charset="utf-8">
+
+	<!-- librerías de estilo -->
+	<!-- Bootstrap Core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Theme CSS -->
+	<link href="css/clean-blog.min.css" rel="stylesheet">
+	<!-- Custom Fonts -->
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+	<!-- librerías de la parte numérica y grafíca -->
+	<link rel="stylesheet" href="styles/monokai-sublime.css">
+	<script language="javascript" type="text/javascript" src="p5.js"></script>
+	<script src="highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+					<h2 class="section-heading">Termitas virtuales</h2>
+
+					<br style=" display: block;
+					margin: 15px 5;">
+
+					<div class="row">
+						<br style=" display: block;
+						margin: 5px 0;">
+
+						<p>
+							Sistema de <i>termitas virtuales</i> que se desplazan en marcha
+							aleatoria por el espacio con condiciones de frontera periódicas
+							siguiendo las siguientes normas:
+
+							<ul>
+ 							 <li>si la hormiga sin comida (cuadro azul) se topa con un trozo de madera (cuadro negro), ésta lo toma y prosigue su marcha aleatoria</li>
+ 						   <li>si la hormiga con comida (cuadro naranja) se topa con un trozo de madera, ésta deposita el que lleva y continúa su marcha aleatoria</li>
+						  </ul>
+
+							cada hormiga es inicializada aleatoriamente en el espacio con un valor aleatorio de comida. Se programó el código desde cero con la librería p5.js
+							y la descripción del juego dada en el libro. Se aprecia cómo las hormigas van formando "clusters" de madera a medida que avanza el tiempo.
+						</p>
+						</div>
+
+						<br>
+
+						<div id="sketch-holder" style = "text-align:center;">
+						</div>
+
+						<script src="script.js"> </script>
+
+						<br>
+
+						<p><b>Código fuente:</b></p>
+
+						<pre><code>
+// parámetros de inicialización aleatoria
+let umbral = 0.05;
+let dummy;
+
+// crea un arreglo 2x2 de tamaño colsxrows inicializado con ceros
+function make2DArray(cols,rows){
+  let arr = new Array(cols);
+
+  for(let i = 0; i < cols; i++){
+    arr[i] = new Array(rows);
+  }
+  for(let i = 0; i < cols; i++){
+    for(let j = 0; j < rows; j++){
+      arr[i][j] = 0;
+    }
+  }
+  return arr;
+}
+
+// llena el arreglo de booleanos aleatorios
+function randomizeArray(arr,cols,rows){
+  for(let i = 0; i < cols; i++){
+    for(let j = 0; j < rows; j++){
+      dummy = Math.random();
+      if (dummy< umbral){
+        arr[i][j] = 1;
+      }
+      else{
+        arr[i][j] = 0;
+      }
+    }
+  }
+  return arr;
+}
+
+function position(z,cols){
+  if(z>cols-1){
+    z = 0;
+  }
+  else if(z < 0){
+    z = cols-1;
+  }
+  else{
+    z=z;
+  }
+  return z;
+}
+
+// parametros geometricos
+
+let resolution = 10;
+let canvasx = 600;
+let canvasy = 600;
+let cols = Math.floor(canvasx / resolution);
+let rows = Math.floor(canvasy / resolution);
+let numHormigas = 100;
+let ants = new Array();
+let randomX = Math.floor(Math.random() * (cols)) +0;
+let randomY = Math.floor(Math.random() * (rows)) +0;
+let randomWood = Math.floor(Math.random() * (2)) +0;
+var  grid = new Array();
+grid = make2DArray(cols,rows);
+grid = randomizeArray(grid, cols, rows);
+
+//clase hormiga
+class ant {
+  constructor(x,y,madera){
+    this.x = x;
+    this.y = y;
+    this.madera = madera;
+  }
+}
+
+// enjambre de hormigas
+for (let k=0; k < numHormigas; k++){
+  ants.push(new ant(Math.floor(Math.random() * (cols)) +0,Math.floor(Math.random() * (rows)) +0,Math.floor(Math.random() * (2)) +0));
+}
+
+// evoluciona el sistema
+function evolve(ants){
+
+  let stepx;
+  let stepy;
+
+  for(let n=0; n < numHormigas; n++){
+    ant = ants[n];
+    stepx = Math.floor(Math.random() * (3)) -1;
+    stepy = Math.floor(Math.random() * (3)) -1;
+
+    ant.x = position(ant.x + stepx,cols);
+    ant.y = position(ant.y + stepy,rows);
+
+    if(grid[ant.x][ant.y]==1 && ant.madera ==0 ){
+      grid[ant.x][ant.y]=0;
+      ant.madera=1;
+    }
+    if(grid[ant.x][ant.y]==1 && ant.madera ==1 )
+    {
+    	while (grid[ant.x][ant.y]==1){
+    		ant.x = position(ant.x + Math.floor(Math.random() * (3)) -1  ,cols);
+    		ant.y = position(ant.y + Math.floor(Math.random() * (3)) -1  ,rows);
+    	}
+    	grid[ant.x][ant.y] = 1;
+    	ant.madera = 0;
+    }
+
+    if(ant.madera == 1 ){
+      fill(255,69,0);
+      rect(resolution*ant.x,resolution*ant.y,resolution-1,resolution-1);
+    }
+    else{
+      fill(0,69,255);
+      rect(resolution*ant.x,resolution*ant.y,resolution-1,resolution-1);
+    }
+    ants[n] = ant;
+  }
+}
+
+// setup de p5.js
+function setup(){
+  createCanvas(canvasx,canvasy);
+  frameRate(60);
+
+}
+
+// colorea el canvas dependiendo del valor de cada celda
+function draw(){
+  background(255);
+  for(let i = 0; i < cols; i++){
+    for(let j = 0; j < rows; j++){
+      let x = i*resolution;
+      let y = j*resolution;
+      if (grid[i][j] == 1){
+        stroke(0);
+        fill(0);
+        rect(x,y,resolution,resolution);
+      }
+    }
+  }
+
+  evolve(ants);
+
+}
+						</code></pre>
+
+
+</div>
+</div>
+</div>
+</article>
+
+<hr>
+
+</body>
+</html>

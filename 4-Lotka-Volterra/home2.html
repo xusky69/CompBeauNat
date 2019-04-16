@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Lotka Volterra</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- librerías de estilo -->
+  <!-- Bootstrap Core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Theme CSS -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+  <!-- Custom Fonts -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+  <script src="http://malsup.github.com/jquery.form.js"></script>
+
+  <!-- librerías de la parte numérica y grafíca -->
+  <script src="https://unpkg.com/mathjs@5.1.1/dist/math.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+<body>
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+          <h2 class="section-heading">Modelo Lotka-Volterra simple para dos especies</h2>
+
+          <p>Este modelo analiza la interacción presa-depredador entre dos especies</p>
+
+          <p>El sistema de ecuaciones diferenciales que describe el sistema es:</p>
+
+          <br style=" display: block;
+          margin: 15px 0;">
+
+          <div class="row">
+            <div class="col-sm-5">
+              <br style=" display: block;
+              margin: 15px 0;">
+              <img class="img-responsive" src="img/equation1.svg" alt="" width="200px" align="right" /></div>
+
+              <div class="col-sm-7 ">
+                <blockquote>
+                  <br style=" display: block;
+                  margin: 15px 0;">
+                  Donde:
+                  <br>
+                  α:  tasa de reproducción de la presa
+                  <br>
+                  β:  tasa de interacción presa-depredador
+                  <br>
+                  γ:  tasa de reproducción del depredador
+                  <br>
+                  δ:  tasa de interacción depredador-presa
+                  <br>
+                  <br>
+
+                </blockquote>
+              </div>
+            </div>
+
+            <br style=" display: block;
+            margin: 5px 0;">
+
+            <p>Los siguientes sliders permiten seleccionar los parámetros que condicionarán la evolución temporal del sistema:</p>
+
+            <div class="row">
+              <div class="col-sm-6">
+
+                <span><em>alpha</em></span>
+                <br>
+
+                <input  type="range" id="alfa" min="0" max="2.0" value="1.5" step="0.1" onchange=slidervalue(this.value,"alphavalue") />
+                <span id="alphavalue">1.5</span>
+
+                <br>
+                <br>
+
+                <span><em>beta</em></span>
+
+                <br>
+
+                <input type="range" id="beta" min="0" max="2.0" value="0.4" step="0.1" onchange=slidervalue(this.value,"betavalue") />
+                <span id="betavalue">0.4</span>
+
+                <br>
+                <br>
+
+                <span><em>presas iniciales</em></span>
+
+                <br>
+
+                <input type="range" id="press" min="0" max="20" value="9" step="1" onchange=slidervalue(this.value,"presa") />
+
+                <span id="presa">9</span>
+
+                <br>
+                <br>
+
+                <span><em>tiempo máximo</em></span>
+
+                <br>
+
+                <input type="range" id="time" min="0" max="200" value="50" step="5" onchange=slidervalue(this.value,"tiempo") />
+
+                <span id="tiempo">50</span>
+
+              </div>
+              <div class="col-sm-6">
+
+                <span><em>gamma</em></span>
+
+                <input type="range" id="gamma" min="0" max="5" value="3" step="0.1" onchange=slidervalue(this.value,"gammavalue") />
+
+                <span id="gammavalue">3</span>
+
+                <br>
+                <br>
+
+                <span><em>delta</em></span>
+
+
+                <input type="range" id="delta" min="0" max="2.0" value="0.4" step="0.1" onchange=slidervalue(this.value,"deltavalue") />
+
+                <span id="deltavalue">0.4</span>
+
+                <br>
+                <br>
+                <span><em>depredadores iniciales</em></span>
+
+                <br>
+
+                <input type="range" id="predd" min="0" max="20" value="6" step="1" onchange=slidervalue(this.value,"depredador") />
+
+                <span id="depredador">6</span>
+
+                <br>
+                <br>
+
+                <br>
+
+              </div>
+
+
+
+            </div>
+
+            <center> <button onclick="eval()" class="btn btn-default">EJECUTAR SIMULACIÓN</button> </center>
+
+            <script language="javascript" type="text/javascript" src="script2.js">//Script de la parte numérica </script>
+
+            <script type="text/javascript">
+
+            //JS del slider
+            function slidervalue (x,y)
+            {
+              document.getElementById(y).innerHTML=x;
+            }
+            </script>
+
+          </div>
+        </div>
+
+        <center> <div id="plotDiv" style="display:flex; justify-content:center; align-items:center;"></div></center>
+
+        <center> <div id="plotDiv2" style="display:flex; justify-content:center; align-items:center;"></div></center>
+
+      </div>
+    </article>
+
+    <hr>
+
+  </body>
+  </html>

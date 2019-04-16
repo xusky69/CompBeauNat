@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Henon Map</title>
+
+  <meta charset="utf-8">
+
+  <!-- librerías de estilo -->
+  <!-- Bootstrap Core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Theme CSS -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+  <!-- Custom Fonts -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <!-- librerías de la parte numérica y grafíca -->
+  <script src="https://unpkg.com/mathjs@5.1.1/dist/math.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+<body>
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+          <h2 class="section-heading">Dinámica caótica del mapa de Hénon</h2>
+
+          <br style=" display: block;
+          margin: 15px 5;">
+
+          <div class="row">
+            <br style=" display: block;
+            margin: 5px 0;">
+
+            <p>Atractor y evolución temporal de los parámetros x e y del mapa de Henon (en construcción)</p>
+
+            <div class="row">
+              <div class="col-sm-6">
+
+              </div>
+
+              <div class="col-sm-6">
+
+              </div>
+
+            </div>
+
+            <center> <button onclick="eval()" class="btn btn-default">EJECUTAR SIMULACIÓN</button> </center>
+
+            <script language="javascript" type="text/javascript" src="script2.js">//Script de la parte numérica </script>
+
+            <center> <div id="plotDiv1" style="display:flex; justify-content:center; align-items:center;"></div></center>
+            <center> <div id="plotDiv2" style="display:flex; justify-content:center; align-items:center;"></div></center>
+            <center> <div id="plotDiv3" style="display:flex; justify-content:center; align-items:center;"></div></center>
+
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+
+  </body>
+  </html>

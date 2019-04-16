@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Mandelbrot</title>
+
+	<meta charset="utf-8">
+
+	<!-- librerías de estilo -->
+	<!-- Bootstrap Core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Theme CSS -->
+	<link href="css/clean-blog.min.css" rel="stylesheet">
+	<!-- Custom Fonts -->
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+	<!-- librerías de la parte numérica y grafíca -->
+	<script src="https://unpkg.com/mathjs@5.1.1/dist/math.min.js"></script>
+	<link rel="stylesheet" href="styles/monokai-sublime.css">
+	<script src="highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+					<h2 class="section-heading">Fractal de Mandelbrot</h2>
+
+					<br style=" display: block;
+					margin: 15px 5;">
+
+					<div class="row">
+						<br style=" display: block;
+						margin: 5px 0;">
+
+						<p>Representación gráfica del fractal de mandelbrot mediante el uso de la librería math.js y el canvas de html5</p>
+
+						<p><b>Se uso como guía:</b></p>
+						<p>
+							<a href="https://progur.com/2017/02/create-mandelbrot-fractal-javascript.html">
+							Mandelbrot Fractal using javascript
+							</a>
+						</p>
+
+						<div id=maocanvas>
+						</div>
+
+						<script src="script.js"> </script>
+
+						<br>
+
+						<p><b>Código fuente:</b></p>
+
+						<pre><code>
+//basado en https://progur.com/2017/02/create-mandelbrot-fractal-javascript.html
+
+// Crea el canvas y le da un contexto
+var myCanvas = document.createElement("canvas");
+myCanvas.width=600;
+myCanvas.height=600;
+document.body.appendChild(myCanvas);
+var ctx = myCanvas.getContext("2d");
+
+// esta función define la sucesión del conjunto M
+// x e y son las coordenadas de c en el plano complejo
+// z es el elemento de la sucesión, empieza en cero.
+function mandel( x , y , z){
+  return math.add( math.multiply(z,z) , math.complex(x,y) );
+}
+
+var iterations = 50;
+
+// esta función retorna un booleano que indica si c pertenece al conjunto M
+function checkIfBelongsToMandelbrotSet( x , y ){
+
+  var z = math.complex(0,0);
+  var inside;
+
+  for(i=0; i< iterations; i++){
+
+    z=mandel(x,y,z);
+
+    if( math.norm(z) < 2){
+      inside=1;
+    }
+    else{
+      inside=0;
+      break;
+    };
+  }
+  return inside;
+}
+
+var magnificationFactor = 2900 ;
+var panX = 0.7;
+var panY = 0.6;
+
+//dibuja el fractal
+for(var x=0; x < myCanvas.width; x++) {
+  for(var y=0; y < myCanvas.height; y++) {
+    var belongsToSet =
+    checkIfBelongsToMandelbrotSet(x/magnificationFactor - panX,
+      y/magnificationFactor - panY);
+      if(belongsToSet) {
+        ctx.fillRect(x,y, 1,1);
+      }
+    }
+  }
+
+						</code></pre>
+
+
+</div>
+</div>
+</div>
+</article>
+
+<hr>
+
+</body>
+</html>

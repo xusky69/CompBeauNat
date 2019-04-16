@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Sucesión de Recamán</title>
+
+	<meta charset="utf-8">
+
+	<!-- librerías de estilo -->
+	<!-- Bootstrap Core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Theme CSS -->
+	<link href="css/clean-blog.min.css" rel="stylesheet">
+	<!-- Custom Fonts -->
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+	<!-- librerías de la parte numérica y grafíca -->
+	  <script language="javascript" type="text/javascript" src="	p5.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
+	<link rel="stylesheet" href="styles/monokai-sublime.css">
+	<script src="highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+					<h2 class="section-heading">Visualización geométrica de la sucesión de Recamán</h2>
+
+					<br style=" display: block;
+					margin: 15px 5;">
+
+					<div class="row">
+						<br style=" display: block;
+						margin: 5px 0;">
+
+						<p>Representación gráfica de la sucesión de Recamán usando la librería p5.js de javascript. Cada arco que se dibuja representa
+						una iteración en la sucesión: si se dibuja un arco en la mitad inferior, la sucesión retrocedió; si se dibuja un arco en la mitad superior, la sucesión avanzó.
+						El diámetro de cada arco es igual a la diferencia entre el elemento inicial y final de cada iteración.</p>
+
+						<p><b>Se uso como guía:</b></p>
+						<p>
+							<a href="https://www.youtube.com/watch?v=DhFZfzOvNTU">
+							The coding train: Recamán Sequence
+							</a>
+							<br>
+							<a href="https://oeis.org/A005132">
+							Enciclopedia de sucesiones enteras: sucesión de Recamán
+							</a>
+						</p>
+						<div class="row">
+							<div class="col-sm-6">
+
+							</div>
+
+							<div class="col-sm-6">
+
+							</div>
+
+						</div>
+						<div id ='sketch-holder' style = "text-align:center;">
+						</div>
+
+						<script src="script.js"> </script>
+
+						<br>
+
+						<p><b>Código fuente:</b></p>
+
+						<pre><code>
+// aprendido en https://www.youtube.com/watch?v=DhFZfzOvNTU
+
+let numbers = [];
+let sequence =[];
+let count = 1;
+let index = 0;
+let arcs = [];
+let biggest = 0;
+
+//arco con geometría dependiente de la posición espacial y temporal de la sucesión
+class Arc {
+	constructor(start,end,dir)
+	{
+		this.start = start;
+		this.end = end;
+		this.dir = dir;
+	}
+
+	show() {
+		let diameter = abs(this.end - this.start);
+		let x = (this.end + this.start) / 2;
+		stroke(0);
+		noFill();
+		if(this.dir == 0){
+			arc(x,0,diameter,diameter,PI,0);
+		}
+		else{
+			arc(x,0,diameter,diameter,0,PI);
+		}
+	}
+}
+
+function setup(){
+	var mycanvas = createCanvas(600,600);
+	mycanvas.parent('sketch-holder');
+	frameRate(30);
+	background(255);
+	numbers[index] = true;
+	sequence.push(index);
+}
+
+//calcula el siguiente paso en la sucesión, y agrega un arco en función de esa geometría
+function step(){
+	let next = index - count;
+	if( next < 0 || numbers[next] ){
+		next = index + count;
+	}
+
+	numbers[next] = true;
+	sequence.push(next);
+
+	let a = new Arc(index,next,count % 2);
+	arcs.push(a);
+
+	index = next;
+
+	if (index > biggest){
+		biggest = index;
+	}
+
+	count++;
+
+}
+
+function draw(){
+	step();
+	translate(0, height/2);
+	scale(width/biggest);
+	background(255);
+	for (let a of arcs){
+		a.show();
+	}
+
+}
+
+						</code></pre>
+
+
+</div>
+</div>
+</div>
+</article>
+
+<hr>
+
+</body>
+</html>
