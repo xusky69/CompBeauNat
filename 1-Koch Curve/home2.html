@@ -1,95 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Koch Curve</title>
+<title>Koch Curve</title>
 
-	<meta charset="utf-8">
+<meta charset="utf-8">
 
-	<!-- librerías de estilo -->
-	<!-- Bootstrap Core CSS -->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Theme CSS -->
-	<link href="css/clean-blog.min.css" rel="stylesheet">
-	<!-- Custom Fonts -->
-	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!-- librerías de estilo -->
+<!-- Bootstrap Core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Theme CSS -->
+<link href="css/clean-blog.min.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-	<!-- librerías de la parte numérica y grafíca -->
-	<script src="https://unpkg.com/mathjs@5.1.1/dist/math.min.js"></script>
-	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-	<link rel="stylesheet" href="styles/monokai-sublime.css">
-	<script src="highlight.pack.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
+<!-- librerías de la parte numérica y grafíca -->
+<script src="https://unpkg.com/mathjs@5.1.1/dist/math.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<link rel="stylesheet" href="styles/monokai-sublime.css">
+<script src="highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 </head>
 <body>
-	<article>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<article>
+<div class="container">
+<div class="row">
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-					<h2 class="section-heading">Curva de Koch</h2>
+<h2 class="section-heading">Autosimilaridad y geometría fractal</h2>
 
-					<br style=" display: block;
-					margin: 15px 5;">
+<br style=" display: block;
+margin: 15px 5;">
 
-					<div class="row">
-						<br style=" display: block;
-						margin: 5px 0;">
+<div class="row">
+<br style=" display: block;
+margin: 5px 0;">
 
-						<p>Representación gráfica de la curva de Koch mediante la sucesión de Thue-Morse y el canvas de html5</p>
+<p>La naturaleza exhibe formas y patrones que son imposibles de clasificar o describir mediante formas geométricas simples (como esferas o cubos). Benoit Mandelbrot acuñó el término fractal para diferenciar figuras geométricas puras de aquellas que son imposibles de clasificar a partir de estas.  Los fractales suelen exhibir las siguientes propiedades:</p>
 
-						<p><b>Se uso como guía:</b></p>
-						<p>
-							<a href="https://progur.com/2016/10/procedural-generation-create-koch-curve-javascript.html">
-							Koch Curve using javascript
-							</a>
-						</p>
-						<div class="row">
-							<div class="col-sm-6">
+<p>Autosimilaridad:  Los fractales suelen ser autosimilares en múltiples escalas, implicando esto que una pequeña porción de un fractal a menudo será similar o semejante al objeto completo. </p>
 
-							</div>
+<p>Dimensión fraccional: Los fractales tienen una dimensión fraccional, a diferencia de la dimensión entera de los objetos geométricos simples. Por ejemplo, un fractal de dimensión 1.5 es algo más que una línea pero algo menos que un plano.
+Dada su autosimilaridad, los fractales suelen presentar algún tipo de recursión en su estructura, ya sea de manera explícita o sutilmente, con patrones a distintas escalas espaciales.</p>
 
-							<div class="col-sm-6">
+<h4>Dimensiones fractales</h4>
+<p>En 1961 Lewis Richardson descubrió que la longitud de una línea de costa varía radicalmente en función de la unidad de medida utilizado, similar a lo que ocurriría si tratáramos de medir la longitud de una curva de Koch. Mandelbrot descubrió que algunas monstruosidades matemáticas como las tres ya descritas se comportaban y clasificaban de manera similar a las líneas de costa. Al medir un objeto se tiene siempre la igualdad
+$$
+N = {\left( \frac{1}{a} \right) }^D
+$$
+<p>Donde N es el número de veces que la unidad de medida a cabe en el objeto medido y D es la dimensión de este. Así, equivalentemente:</p>
+$$
+D = \frac{\log N}{\log {\left( \frac{1}{a} \right) }}
+$$
+<p>Expresión que nos permite computar la dimensión de un objeto en términos de la unidad de medida utilizada.</p>
 
-							</div>
+<h4>Curva de Koch</h4>
+<p>Esta entidad matemática es un ejemplo de curva sin tangente, dado que tiene una esquina en cada uno de sus puntos. Esto implica que la longitud de una curva de Koch es infinita, pero confinada en una región espacial finita.  La sucesión de Thue-Morse es una secuencia binaria que empieza en cero y en cada iteración n añade el complemento binario de la iteración anterior n-1. Esta sucesión converge a la curva de Koch en n a infinito, y tomando un n lo suficientemente grande es útil para visualizar la curva de Koch.</p>
 
-						</div>
-						<div style = "text-align:center;">
-							<canvas id="my_canvas" width="600" height="600"></canvas>
-						</div>
+<p>A continuación se tiene una representación gráfica de la curva de Koch mediante la sucesión de Thue-Morse y el canvas de html5</p>
 
-						<script>
-							var myCanvas = document.getElementById("my_canvas");
-						</script>
+<p><b>Se uso como guía:</b></p>
+<p>
+<a href="https://progur.com/2016/10/procedural-generation-create-koch-curve-javascript.html">
+Koch Curve using javascript
+</a>
+</p>
+<div class="row">
+<div class="col-sm-6">
 
-						<script src="script.js"> </script>
+</div>
 
-						<br>
+<div class="col-sm-6">
 
-						<p><b>Código fuente:</b></p>
+</div>
 
-						<pre><code>
+</div>
+<div style = "text-align:center;">
+<canvas id="my_canvas" width="600" height="600"></canvas>
+</div>
+
+<script>
+var myCanvas = document.getElementById("my_canvas");
+</script>
+
+<script src="script.js"> </script>
+
+<br>
+
+<p><b>Código fuente:</b></p>
+
+<pre><code>
 //Esta funcion genera la sucesión de Thue-Morse
 function generateSequence(iteraciones){
-  var sequence = "0";
-  for (k = 0; k < iteraciones; k++){
-    var complemento = "";
-    var partes = sequence.split("");
-    for (j = 0; j < sequence.length; j++){
-      switch (partes[j]){
-        case "0":
-        complemento += "1";
-        break;
-        case "1":
-        complemento += "0";
-        break;
-      }
-    }
-    sequence += complemento;
-  }
-  return sequence;
+var sequence = "0";
+for (k = 0; k < iteraciones; k++){
+var complemento = "";
+var partes = sequence.split("");
+for (j = 0; j < sequence.length; j++){
+switch (partes[j]){
+case "0":
+complemento += "1";
+break;
+case "1":
+complemento += "0";
+break;
+}
+}
+sequence += complemento;
+}
+return sequence;
 }
 
 var ctx = myCanvas.getContext("2d");
@@ -97,25 +119,25 @@ var ctx = myCanvas.getContext("2d");
 //Esta funcion dibuja la curva de Koch a partir de la
 //sucesión anterior usando el canvas de HTML
 function draw() {
-  var sequence = generateSequence(20);
-  var parts = sequence.split("");
-  ctx.translate(0, myCanvas.height);
-  ctx.beginPath();
-  ctx.moveTo(0,0);
-  for(var i = 0; i < parts.length; i++) {
-    if(parts[i] == "0") {
-      ctx.translate(0,0.1);
-      ctx.lineTo(0,0.1);
-    } else {
-      ctx.rotate(Math.PI/3);
-    }
-  }
-  ctx.stroke();
+var sequence = generateSequence(20);
+var parts = sequence.split("");
+ctx.translate(0, myCanvas.height);
+ctx.beginPath();
+ctx.moveTo(0,0);
+for(var i = 0; i < parts.length; i++) {
+if(parts[i] == "0") {
+ctx.translate(0,0.1);
+ctx.lineTo(0,0.1);
+} else {
+ctx.rotate(Math.PI/3);
+}
+}
+ctx.stroke();
 }
 
 draw();
 
-						</code></pre>
+</code></pre>
 
 
 </div>

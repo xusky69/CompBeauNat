@@ -1,115 +1,120 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Termites</title>
+<title>Termites</title>
 
-	<meta charset="utf-8">
+<meta charset="utf-8">
 
-	<!-- librerías de estilo -->
-	<!-- Bootstrap Core CSS -->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Theme CSS -->
-	<link href="css/clean-blog.min.css" rel="stylesheet">
-	<!-- Custom Fonts -->
-	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!-- librerías de estilo -->
+<!-- Bootstrap Core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Theme CSS -->
+<link href="css/clean-blog.min.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-	<!-- librerías de la parte numérica y grafíca -->
-	<link rel="stylesheet" href="styles/monokai-sublime.css">
-	<script language="javascript" type="text/javascript" src="p5.js"></script>
-	<script src="highlight.pack.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
+<!-- librerías de la parte numérica y grafíca -->
+<link rel="stylesheet" href="styles/monokai-sublime.css">
+<script language="javascript" type="text/javascript" src="p5.js"></script>
+<script src="highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 </head>
 <body>
-	<article>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<article>
+<div class="container">
+<div class="row">
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-					<h2 class="section-heading">Termitas virtuales</h2>
+<h2 class="section-heading">Agentes autónomos y auto-organización</h2>
 
-					<br style=" display: block;
-					margin: 15px 5;">
+<br style=" display: block;
+margin: 15px 5;">
 
-					<div class="row">
-						<br style=" display: block;
-						margin: 5px 0;">
+<div class="row">
+<br style=" display: block;
+margin: 5px 0;">
 
-						<p>
-							Sistema de <i>termitas virtuales</i> que se desplazan en marcha
-							aleatoria por el espacio con condiciones de frontera periódicas
-							siguiendo las siguientes normas:
+<p>Un agente autónomo es una unidad que interactúa con su entorno (que puede o no contener otros agentes), pero actúa independientemente de los otros agentes en la medida de que no toma órdenes de un líder directo  o indirecto, o tiene idea alguna de un plan global que debería estar siguiendo. En palabras simples, un agente símplemente se limita a hacer sus cosas. Con esta definición, se explorará cómo múltiples agentes simples pueden actuar e interactuar de tal forma que aparentemente sigan un plan global. Este proceso mediante el cual agentes autónomos crean un orden global se conoce como auto-organizacióm, y está presente en mucho tipos de fenómoenos naturales: sopas químicas, regulación genética, super-organismos, colectivos animales, etc.</p>
+<p>En muchas especies animales, grandes colecciones de criaturas construyen cooperativamente estructuras que parecen tener algún tipo de planeación involucrada. Mitchel Resnick ha estudiado una amplia variedad de sistemas que consisten enteramente en agentes muy primitivos. Un ejemplo notable de las criaturas de Resnick es una termita teórica que sigue la siguiente regla simple:</p>
 
-							<ul>
- 							 <li>si la hormiga sin comida (cuadro azul) se topa con un trozo de madera (cuadro negro), ésta lo toma y prosigue su marcha aleatoria</li>
- 						   <li>si la hormiga con comida (cuadro naranja) se topa con un trozo de madera, ésta deposita el que lleva y continúa su marcha aleatoria</li>
-						  </ul>
+<ul>
+<li>si la hormiga sin comida (cuadro azul) se topa con un trozo de madera (cuadro negro), ésta lo toma y prosigue su marcha aleatoria</li>
+<li>si la hormiga con comida (cuadro naranja) se topa con un trozo de madera, ésta deposita el que lleva y continúa su marcha aleatoria</li>
+</ul>
 
-							cada hormiga es inicializada aleatoriamente en el espacio con un valor aleatorio de comida. Se programó el código desde cero con la librería p5.js
-							y la descripción del juego dada en el libro. Se aprecia cómo las hormigas van formando "clusters" de madera a medida que avanza el tiempo.
-						</p>
-						</div>
+<p>Este esquema es tan simple que no hay lugar para inteligencia en él, y parece muy poco probable que una o más termitas siguiento esta regla pudiesen producir algo más que un simple desorden. Sin embargo, al simular este tipo de sistemas se puede observar que a medida que los pasos de tiempo aumentan (y para los parámetros adecuados) las termitas empiezan a agrupar los trozos de madera en clusters pequeños, que con el paso del tiempo empiezan a aumentar en tamaño y definir su forma. Muchos pasos de tiempo después, se observa que los clusters se han convertido en estructuras bien definidas e interconectadas casi por completo. 
+</p>
 
-						<br>
+<p>
+A continuación se muestra la implementación de un sistema de <i>termitas virtuales</i> que se desplazan en marcha
+aleatoria por el espacio con condiciones de frontera periódicas siguiendo las siguientes normas ya listadas.</p>
+<p>
+Cada hormiga es inicializada aleatoriamente en el espacio con un valor aleatorio de comida. Se programó el código desde cero con la librería p5.js
+y la descripción del juego dada en el libro. Se aprecia cómo las hormigas van formando "clusters" de madera a medida que avanza el tiempo.
+</p>
+</div>
 
-						<div id="sketch-holder" style = "text-align:center;">
-						</div>
+<br>
 
-						<script src="script.js"> </script>
+<div id="sketch-holder" style = "text-align:center;">
+</div>
 
-						<br>
+<script src="script.js"> </script>
 
-						<p><b>Código fuente:</b></p>
+<br>
 
-						<pre><code>
+<p><b>Código fuente:</b></p>
+
+<pre><code>
 // parámetros de inicialización aleatoria
 let umbral = 0.05;
 let dummy;
 
 // crea un arreglo 2x2 de tamaño colsxrows inicializado con ceros
 function make2DArray(cols,rows){
-  let arr = new Array(cols);
+let arr = new Array(cols);
 
-  for(let i = 0; i < cols; i++){
-    arr[i] = new Array(rows);
-  }
-  for(let i = 0; i < cols; i++){
-    for(let j = 0; j < rows; j++){
-      arr[i][j] = 0;
-    }
-  }
-  return arr;
+for(let i = 0; i < cols; i++){
+arr[i] = new Array(rows);
+}
+for(let i = 0; i < cols; i++){
+for(let j = 0; j < rows; j++){
+arr[i][j] = 0;
+}
+}
+return arr;
 }
 
 // llena el arreglo de booleanos aleatorios
 function randomizeArray(arr,cols,rows){
-  for(let i = 0; i < cols; i++){
-    for(let j = 0; j < rows; j++){
-      dummy = Math.random();
-      if (dummy< umbral){
-        arr[i][j] = 1;
-      }
-      else{
-        arr[i][j] = 0;
-      }
-    }
-  }
-  return arr;
+for(let i = 0; i < cols; i++){
+for(let j = 0; j < rows; j++){
+dummy = Math.random();
+if (dummy< umbral){
+arr[i][j] = 1;
+}
+else{
+arr[i][j] = 0;
+}
+}
+}
+return arr;
 }
 
 function position(z,cols){
-  if(z>cols-1){
-    z = 0;
-  }
-  else if(z < 0){
-    z = cols-1;
-  }
-  else{
-    z=z;
-  }
-  return z;
+if(z>cols-1){
+z = 0;
+}
+else if(z < 0){
+z = cols-1;
+}
+else{
+z=z;
+}
+return z;
 }
 
 // parametros geometricos
@@ -130,84 +135,84 @@ grid = randomizeArray(grid, cols, rows);
 
 //clase hormiga
 class ant {
-  constructor(x,y,madera){
-    this.x = x;
-    this.y = y;
-    this.madera = madera;
-  }
+constructor(x,y,madera){
+this.x = x;
+this.y = y;
+this.madera = madera;
+}
 }
 
 // enjambre de hormigas
 for (let k=0; k < numHormigas; k++){
-  ants.push(new ant(Math.floor(Math.random() * (cols)) +0,Math.floor(Math.random() * (rows)) +0,Math.floor(Math.random() * (2)) +0));
+ants.push(new ant(Math.floor(Math.random() * (cols)) +0,Math.floor(Math.random() * (rows)) +0,Math.floor(Math.random() * (2)) +0));
 }
 
 // evoluciona el sistema
 function evolve(ants){
 
-  let stepx;
-  let stepy;
+let stepx;
+let stepy;
 
-  for(let n=0; n < numHormigas; n++){
-    ant = ants[n];
-    stepx = Math.floor(Math.random() * (3)) -1;
-    stepy = Math.floor(Math.random() * (3)) -1;
+for(let n=0; n < numHormigas; n++){
+ant = ants[n];
+stepx = Math.floor(Math.random() * (3)) -1;
+stepy = Math.floor(Math.random() * (3)) -1;
 
-    ant.x = position(ant.x + stepx,cols);
-    ant.y = position(ant.y + stepy,rows);
+ant.x = position(ant.x + stepx,cols);
+ant.y = position(ant.y + stepy,rows);
 
-    if(grid[ant.x][ant.y]==1 && ant.madera ==0 ){
-      grid[ant.x][ant.y]=0;
-      ant.madera=1;
-    }
-    if(grid[ant.x][ant.y]==1 && ant.madera ==1 )
-    {
-    	while (grid[ant.x][ant.y]==1){
-    		ant.x = position(ant.x + Math.floor(Math.random() * (3)) -1  ,cols);
-    		ant.y = position(ant.y + Math.floor(Math.random() * (3)) -1  ,rows);
-    	}
-    	grid[ant.x][ant.y] = 1;
-    	ant.madera = 0;
-    }
+if(grid[ant.x][ant.y]==1 && ant.madera ==0 ){
+grid[ant.x][ant.y]=0;
+ant.madera=1;
+}
+if(grid[ant.x][ant.y]==1 && ant.madera ==1 )
+{
+while (grid[ant.x][ant.y]==1){
+ant.x = position(ant.x + Math.floor(Math.random() * (3)) -1  ,cols);
+ant.y = position(ant.y + Math.floor(Math.random() * (3)) -1  ,rows);
+}
+grid[ant.x][ant.y] = 1;
+ant.madera = 0;
+}
 
-    if(ant.madera == 1 ){
-      fill(255,69,0);
-      rect(resolution*ant.x,resolution*ant.y,resolution-1,resolution-1);
-    }
-    else{
-      fill(0,69,255);
-      rect(resolution*ant.x,resolution*ant.y,resolution-1,resolution-1);
-    }
-    ants[n] = ant;
-  }
+if(ant.madera == 1 ){
+fill(255,69,0);
+rect(resolution*ant.x,resolution*ant.y,resolution-1,resolution-1);
+}
+else{
+fill(0,69,255);
+rect(resolution*ant.x,resolution*ant.y,resolution-1,resolution-1);
+}
+ants[n] = ant;
+}
 }
 
 // setup de p5.js
 function setup(){
-  createCanvas(canvasx,canvasy);
-  frameRate(60);
+createCanvas(canvasx,canvasy);
+frameRate(60);
 
 }
 
 // colorea el canvas dependiendo del valor de cada celda
 function draw(){
-  background(255);
-  for(let i = 0; i < cols; i++){
-    for(let j = 0; j < rows; j++){
-      let x = i*resolution;
-      let y = j*resolution;
-      if (grid[i][j] == 1){
-        stroke(0);
-        fill(0);
-        rect(x,y,resolution,resolution);
-      }
-    }
-  }
+background(255);
+for(let i = 0; i < cols; i++){
+for(let j = 0; j < rows; j++){
+let x = i*resolution;
+let y = j*resolution;
+if (grid[i][j] == 1){
+stroke(0);
+fill(0);
+rect(x,y,resolution,resolution);
+}
+}
+}
 
-  evolve(ants);
+evolve(ants);
 
 }
-						</code></pre>
+</code></pre>
 
 
 </div>

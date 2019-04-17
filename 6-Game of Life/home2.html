@@ -1,68 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Game of life</title>
+<title>Game of life</title>
 
-	<meta charset="utf-8">
+<meta charset="utf-8">
 
-	<!-- librerías de estilo -->
-	<!-- Bootstrap Core CSS -->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Theme CSS -->
-	<link href="css/clean-blog.min.css" rel="stylesheet">
-	<!-- Custom Fonts -->
-	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
-	<link rel="stylesheet" href="styles/monokai-sublime.css">
-	<script src="highlight.pack.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
+<!-- librerías de estilo -->
+<!-- Bootstrap Core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Theme CSS -->
+<link href="css/clean-blog.min.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+<link rel="stylesheet" href="styles/monokai-sublime.css">
+<script src="highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 </head>
 <body>
-	<article>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<article>
+<div class="container">
+<div class="row">
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-					<h2 class="section-heading">El juego de la vida de Conway</h2>
+<h2 class="section-heading">El juego de la vida de Conway</h2>
 
-					<br style=" display: block;
-					margin: 15px 5;">
+<br style=" display: block;
+margin: 15px 5;">
 
-					<div class="row">
-						<br style=" display: block;
-						margin: 5px 0;">
+<div class="row">
+<br style=" display: block;
+margin: 5px 0;">
 
-						<p>Juego de la vida de Conway usando la librería p5.js de javascript</p>
+<p>En los 1960 tardíos, John Conway fue motivado por el trabajo de Von Neumann, impulsándolo a refinar la descripción del autómata celular a la más simple que pudiese soportar computación universal. El autómata celular de Conway sólo tenía dos estados, cero y uno, y tenía un conjunto de reglas para determinar cuál debería ser el siguiente estado del sistema. Conway llamó a su creación "El juego de la vida" debido al estado binario de las células (vivo o muerto) y sus reglas inspiradas en la vida. Al ser un autómata bidimensional, puede ser simulado como fichas en un tablero, lo cuál ayudó a Conway y a sus estudiantes a encontrar muchos patrones que impulsaron la creencia de que la vida podría generar computación universal. En 1970, Martin Garder describió el trabajo de conway en una columna de Scientific American, el cuál inspiró a muchas personas alrededor del mundo a experimentar con las reglas de Conway, que eventualmente llevaron a las piezas faltantes de cómo el juego de la vida puede dar lugar a computación universal, convirtiendo el juego de la vida en un esfuerzo colaborativo global.</p>
+<p>El juego de la vida tiene su conjunto de reglas, las cuales actúan a los ocho primeros vecinos de cada celda y son:</p>
 
-						<p><b>Se uso como guía:</b></p>
-						<p>
-							<a href="https://www.youtube.com/watch?v=FWSR_7kZuYg">
-							The Coding Train: The Game of Life
-							</a>
-						</p>
-						<div class="row">
-							<div class="col-sm-6">
+<ul>
+<li>Si una celda viva tiene menos de dos vecinos vivos, entonces muere. 				(soledad)</li>
+<li>si una celda viva tiene más de tres vecinos vivos, entonces muere 				(sobrepoblación)</li>
+<li>si una celda vacía tiene tres vecinos vivos, entonces nace 		         		(reproducción)</li>
+<li>para todos los casos restantes, la celda se mantiene estática.</li>
+</ul>
 
-							</div>
+<p>A continuación se encuentra una implementación del juego de la vida de Conway usando la librería p5.js de javascript.</p>
 
-							<div class="col-sm-6">
+<p><b>Se uso como guía:</b></p>
+<p>
+<a href="https://www.youtube.com/watch?v=FWSR_7kZuYg">
+The Coding Train: The Game of Life
+</a>
+</p>
+<div class="row">
+<div class="col-sm-6">
 
-							</div>
+</div>
 
-						</div>
-						<div id="sketch-holder" style = "text-align:center;">
-						</div>
+<div class="col-sm-6">
 
-						<script src="script.js"> </script>
+</div>
 
-						<br>
+</div>
+<div id="sketch-holder" style = "text-align:center;">
+</div>
 
-						<p><b>Código fuente:</b></p>
+<script src="script.js"> </script>
 
-						<pre><code>
+<br>
+
+<p><b>Código fuente:</b></p>
+
+<pre><code>
 //se usó como guía https://www.youtube.com/watch?v=FWSR_7kZuYg
 
 let grid;
@@ -72,86 +82,86 @@ let canvasy = 700;
 
 // crea un arreglo 2x2 de tamaño colsxrows inicializado con ceros
 function make2DArray(cols,rows){
-  let arr = new Array(cols);
+let arr = new Array(cols);
 
-  for(let i = 0; i < cols; i++){
-    arr[i] = new Array(rows);
-  }
-  for(let i = 0; i < cols; i++){
-    for(let j = 0; j < rows; j++){
-      arr[i][j] = 0;
-    }
-  }
-  return arr;
+for(let i = 0; i < cols; i++){
+arr[i] = new Array(rows);
+}
+for(let i = 0; i < cols; i++){
+for(let j = 0; j < rows; j++){
+arr[i][j] = 0;
+}
+}
+return arr;
 }
 
 // llena el arreglo de booleanos aleatorios
 function randomizeArray(arr,cols,rows){
-  for(let i = 0; i < cols; i++){
-    for(let j = 0; j < rows; j++){
-      arr[i][j] = floor(random(2));
-    }
-  }
-  return arr;
+for(let i = 0; i < cols; i++){
+for(let j = 0; j < rows; j++){
+arr[i][j] = floor(random(2));
+}
+}
+return arr;
 }
 
 // evoluciona el sistema
 function evolve(grid,cols,rows){
 
-  let next = make2DArray(cols,rows);
+let next = make2DArray(cols,rows);
 
-  for(let l = 1; l < cols-1; l++){
-    for(let k = 1; k < rows-1; k++){
-      //contar los vecinos vivos
-      i = l
-      j = k
-      let sum = 0;
-      sum += grid[i-1][j-1];
-      sum += grid[i-1][j];
-      sum += grid[i][j-1];
-      sum += grid[i+1][j+1];
-      sum += grid[i+1][j];
-      sum += grid[i][j+1];
-      sum += grid[i-1][j+1];
-      sum += grid[i+1][j-1];
-      //aplicar la norma
-      if ( grid[i][j]==1 && sum < 2 ){next[i][j]=0;}
-      else if ( grid[i][j]==1 && sum>3 ){next[i][j]=0;}
-      else if ( grid[i][j]==0 && sum==3){next[i][j]=1;}
-      else{next[i][j] = grid[i][j];}
-    }
-  }
-  return next;
+for(let l = 1; l < cols-1; l++){
+for(let k = 1; k < rows-1; k++){
+//contar los vecinos vivos
+i = l
+j = k
+let sum = 0;
+sum += grid[i-1][j-1];
+sum += grid[i-1][j];
+sum += grid[i][j-1];
+sum += grid[i+1][j+1];
+sum += grid[i+1][j];
+sum += grid[i][j+1];
+sum += grid[i-1][j+1];
+sum += grid[i+1][j-1];
+//aplicar la norma
+if ( grid[i][j]==1 && sum < 2 ){next[i][j]=0;}
+else if ( grid[i][j]==1 && sum>3 ){next[i][j]=0;}
+else if ( grid[i][j]==0 && sum==3){next[i][j]=1;}
+else{next[i][j] = grid[i][j];}
+}
+}
+return next;
 }
 
 // setup de p5.js
 function setup(){
-  createCanvas(canvasx,canvasy);
-  frameRate(10);
-  cols = width / resolution;
-  rows = height / resolution;
-  grid = make2DArray(cols,rows);
-  grid = randomizeArray(grid, cols, rows);
+createCanvas(canvasx,canvasy);
+frameRate(10);
+cols = width / resolution;
+rows = height / resolution;
+grid = make2DArray(cols,rows);
+grid = randomizeArray(grid, cols, rows);
 }
 
 // colorea el canvas dependiendo del valor de cada celda
 function draw(){
-  background(255);
-  for(let i = 0; i < cols; i++){
-    for(let j = 0; j < rows; j++){
-      let x = i*resolution;
-      let y = j*resolution;
-      if (grid[i][j] == 1){
-        stroke(255);
-        fill(0);
-        rect(x,y,resolution-1,resolution-1);
-      }
-    }
-  }
-  grid = evolve(grid,cols,rows);
+background(255);
+for(let i = 0; i < cols; i++){
+for(let j = 0; j < rows; j++){
+let x = i*resolution;
+let y = j*resolution;
+if (grid[i][j] == 1){
+stroke(255);
+fill(0);
+rect(x,y,resolution-1,resolution-1);
+}
+}
+}
+grid = evolve(grid,cols,rows);
 }
 
-						</code></pre>
+</code></pre>
 
 
 </div>
